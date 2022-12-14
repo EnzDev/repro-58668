@@ -1,0 +1,18 @@
+<!-- Both line using 'broken' should show something like:
+ * "Unresolved variable 'broken'"
+ * "Property 'broken' does not exist on type V"
+-->
+<generic-comp [in]="broken" (out)="process($event.first?.broken)">Failed, broken is unresolved but only with warning</generic-comp>
+<generic-comp [in]="working1" (out)="process($event.first?.broken)">Ok, broken is unresolved with error</generic-comp>
+
+<!-- Contraint on a method type -->
+<generic-comp [in]="broken" (out)="process($event.first?.a_number)">Failed, a_number is a number and should not be accepted</generic-comp>
+<generic-comp [in]="working1" (out)="process($event.first?.a_number)">Ok, number not assignable to string</generic-comp>
+
+<!-- Autocompletion on first should propose `working` and `other_type` -->
+<!-- working should be shown as a property of $event.first -->
+<generic-comp [in]="broken" (out)="process($event.first?.working)">Failed, working is unresolved with warning</generic-comp>
+<generic-comp [in]="working1" (out)="process($event.first?.working)">Ok, autocompletion and type is matching</generic-comp>
+<generic-comp [in]="working2" (out)="process($event.first?.working)">Ok, autocompletion and type is matching</generic-comp>
+<generic-comp [in]="working3" (out)="process($event.first?.working)">Ok, autocompletion and type is matching</generic-comp>
+<generic-comp [in]="working4" (out)="process($event.first?.working)">Ok, autocompletion and type is matching</generic-comp>
